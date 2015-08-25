@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.zodiac</groupId>
+    <artifactId>soa.android</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <name>soa.android</name>
+	
+    <properties>
+        <platform.version> 2.2.1
+            </platform.version>
+    </properties>
+	
+    <repositories>          
+	  <repository>          
+	    <id>googlecode-ksoap2-android</id>          
+	    <name>googlecode-ksoap2-android</name>              
+	    <url>http://ksoap2-android.googlecode.com/svn/m2-repo</url>         
+	  </repository>         
+	</repositories>
+    
+    <dependencies>
+        <dependency>
+            <groupId>com.google.android</groupId>
+            <artifactId>android</artifactId>
+            <version>${platform.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+	      <groupId>com.google.code.ksoap2-android</groupId>
+	      <artifactId>ksoap2-android</artifactId>
+	      <version>3.0.0</version>
+	      <exclusions>
+	      	<exclusion>
+	      		<groupId>org.xmlpull</groupId>
+	      		<artifactId>xmlpull</artifactId>
+	      	</exclusion>
+	      </exclusions>
+	    </dependency>
+	    <dependency>
+	        <groupId>xstream</groupId>
+	        <artifactId>xstream</artifactId>
+	        <version>1.2.2</version>
+	    </dependency>
+    </dependencies>
+    
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.jayway.maven.plugins.android.generation2</groupId>
+                <artifactId>android-maven-plugin</artifactId>
+                <version>3.5.0</version>
+                <configuration>
+                    <androidManifestFile>${project.basedir}/AndroidManifest.xml</androidManifestFile>
+                    <assetsDirectory>${project.basedir}/assets</assetsDirectory>
+                    <resourceDirectory>${project.basedir}/res</resourceDirectory>
+                    <nativeLibrariesDirectory>${project.basedir}/src/main/native</nativeLibrariesDirectory>
+                    <sdk>
+                        <platform>10</platform>
+                    </sdk>
+                                        <undeployBeforeDeploy>true</undeployBeforeDeploy>
+                </configuration>
+                <extensions>true</extensions>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.5.1</version>
+                <configuration>
+                    <source>1.5</source>
+                    <target>1.5</target>
+                </configuration>
+            </plugin>
+            
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>2.5</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.google.code.maven-svn-wagon</groupId>
+                        <artifactId>maven-svn-wagon</artifactId>
+                        <version>1.4</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
+    
+    <distributionManagement>
+        <repository>
+            <id>zodiac.googlecode.com</id>
+            <name>Zodiac libs Repository</name>
+            <url>svn:https://zodiac.googlecode.com/svn/maven/releases</url>
+            <uniqueVersion>false</uniqueVersion>
+        </repository>
+        <snapshotRepository>
+            <id>zodiac.googlecode.com</id>
+            <name>Zodiac libs Repository</name>
+            <url>svn:https://zodiac.googlecode.com/svn/maven/snapshots</url>
+            <uniqueVersion>false</uniqueVersion>
+        </snapshotRepository>
+    </distributionManagement>
+</project>
